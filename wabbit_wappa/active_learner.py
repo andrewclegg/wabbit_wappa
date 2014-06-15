@@ -32,7 +32,7 @@ def recvall(s, n):
     buf = s.recv(n)
     ret = len(buf)
     while ret > 0 and len(buf) < n:
-        if buf[-1] == '\n':
+        if buf[-1] == 10: # 10 is ascii \n
             break
         tmp = s.recv(n)
         ret = len(tmp)
@@ -65,7 +65,7 @@ class ActiveVWProcess():
 
     def sendline(self, line):
         line = line + '\n'  # This would have been added automatically by pexpect
-        self.sock.sendall(line)
+        self.sock.sendall(bytes(line, 'utf-8'))
 
     def expect_exact(self, *args, **kwargs):
         """This does not attempt to duplicate the expect_exact API,
