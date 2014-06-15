@@ -1,6 +1,7 @@
 
 import random
 import os
+import tempfile
 import time
 
 from wabbit_wappa import *
@@ -117,7 +118,7 @@ def test_training():
         assert prediction5 < 0
 
         # Save the model to a temporary file
-        filename = '__temp.model'
+        filename = os.path.join(tempfile.gettempdir(), 'wabbit_wappa__temp.model')
         vw.save_model(filename)
         # This sleep is required only in active_mode, in the (unusual) case
         # that the model file is used immediately
