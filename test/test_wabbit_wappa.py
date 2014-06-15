@@ -20,7 +20,7 @@ def test_validation():
     try:
         namespace = Namespace('Metric Features', 3.28, [('height|', 1.5), ('len:gth', 2.0)],
                           escape=False)
-    except WabbitInvalidCharacter, e:
+    except WabbitInvalidCharacter as e:
         pass  # This is the correct behavior
     else:
         assert False, "to_string() should error out for these inputs when escape==False"

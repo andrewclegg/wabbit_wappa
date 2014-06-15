@@ -24,7 +24,7 @@ import re
 
 import pexpect
 
-import active_learner
+from . import active_learner
 
 
 class WabbitInvalidCharacter(ValueError):
@@ -100,7 +100,7 @@ class Namespace():
             2) A tuple (label, value) where value is any float
         """
         for feature in features:
-            if isinstance(feature, basestring):
+            if isinstance(feature, str):
                 label = feature
                 value = None
             else:
@@ -416,14 +416,14 @@ def make_command_line(predictions='/dev/stdout',
     kwargs['predictions'] = predictions
     kwargs['quiet'] = quiet
     kwargs['save_resume'] = save_resume
-    for key, value in kwargs.items():
+    for key, value in list(kwargs.items()):
         if len(key)==1:
             option = '-{}'.format(key)
         else:
             option = '--{}'.format(key)
         if value is True:
             arg_list = [option]
-        elif isinstance(value, basestring):
+        elif isinstance(value, str):
             arg_list = ['{} {}'.format(option, value)]
         elif hasattr(value, '__getitem__'):  # Listlike value
             arg_list = [ '{} {}'.format(option, subvalue) for subvalue in value ]
